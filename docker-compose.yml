@@ -1,0 +1,33 @@
+version: '3.5'
+
+services:
+  challenge_db:
+    container_name: challenge-db
+    image: postgres:9.6
+    networks:
+      - challenge-network
+    volumes:
+      - challenge-pg-data:/var/lib/postgresql/data
+
+  challenge_web:
+    container_name: challenge_web
+    build : .
+    env_file : dev-env
+    command: ["sh", "start.sh"]
+    ports:
+      - 3000:3000
+    networks:
+      - challenge-network
+    volumes:
+      - .:/challenge
+      - challenge-bundle:/usr/local/bundle
+    depends_on:
+      - challenge_db
+volumes:
+  challenge-pg-data:
+  challenge-bundle:
+
+networks:
+  challenge-network:
+    name: challenge-network
+    driver: bridge

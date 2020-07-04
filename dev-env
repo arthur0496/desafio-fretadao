@@ -1,0 +1,5 @@
+PG_USERNAME=postgres
+PG_DATABASE=challenge_development
+PG_HOST=challenge-db
+PG_PORT=5432
+RAILS_ENV=development
