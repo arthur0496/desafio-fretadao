@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_07_04_193526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "github_url"
+    t.string "github_username"
+    t.integer "followers"
+    t.integer "following"
+    t.integer "stars"
+    t.integer "contributions"
+    t.string "profile_image_url"
+    t.string "organization"
+    t.string "location"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end

@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Profiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Github url</th>
+      <th>Github username</th>
+      <th>Followers</th>
+      <th>Following</th>
+      <th>Stars</th>
+      <th>Contributions</th>
+      <th>Profile image url</th>
+      <th>Organization</th>
+      <th>Location</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profiles.each do |profile| %>
+      <tr>
+        <td><%= profile.name %></td>
+        <td><%= profile.github_url %></td>
+        <td><%= profile.github_username %></td>
+        <td><%= profile.followers %></td>
+        <td><%= profile.following %></td>
+        <td><%= profile.stars %></td>
+        <td><%= profile.contributions %></td>
+        <td><%= profile.profile_image_url %></td>
+        <td><%= profile.organization %></td>
+        <td><%= profile.location %></td>
+        <td><%= profile.email %></td>
+        <td><%= link_to 'Show', profile %></td>
+        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+        <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Profile', new_profile_path %>

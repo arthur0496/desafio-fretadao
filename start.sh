@@ -8,10 +8,10 @@ bundle check || bundle install
 # done
 # >&2 echo "Postgres is up - executing commands..."
 
-# if [ -f $pidfile ] ; then
-#   echo 'Server PID file exists. Removing it...'
-#   rm $pidfile
-# fi
+if [ -f $pidfile ] ; then
+  echo 'Server PID file exists. Removing it...'
+  rm $pidfile
+fi
 sleep 5
 
 # If database exists, migrate. Otherwise, create and seed
