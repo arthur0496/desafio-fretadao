@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :update_informations]
 
   # GET /profiles
   # GET /profiles.json
@@ -21,6 +21,14 @@ class ProfilesController < ApplicationController
   def edit
   end
 
+  def update_informations
+    respond_to do |format|
+      @profile.get_github_info
+      @profile.save
+      format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+      format.json { render :show, status: :ok, location: @profile }
+    end
+  end
   # POST /profiles
   # POST /profiles.json
   def create

@@ -1,6 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <img
+    src= <%=@profile.profile_image_url%>
+  %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @profile.name %>
 </p>
@@ -37,7 +43,7 @@
 
 <p>
   <strong>Profile image url:</strong>
-  <%= @profile.profile_image_url %>
+  <%=@profile.profile_image_url%>
 </p>
 
 <p>
@@ -56,4 +62,5 @@
 </p>
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= button_to "Some Button", action="/profiles/#{@profile.id}/update_informations" %>
 <%= link_to 'Back', profiles_path %>
