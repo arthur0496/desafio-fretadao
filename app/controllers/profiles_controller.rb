@@ -1,3 +1,6 @@
+require './lib/exceptions.rb'
+
+
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :update_informations]
 
@@ -23,12 +26,19 @@ class ProfilesController < ApplicationController
 
   def update_informations
     respond_to do |format|
-      @profile.get_github_info
-      @profile.save
-      format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-      format.json { render :show, status: :ok, location: @profile }
+      begin
+        @profile.get_github_info
+        @profile.save
+      rescue Exception => e
+        format.html { render :edit }
+        format.json { render json: e, status: :unprocessable_entity }
+      else
+        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+        format.json { render :show, status: :ok, location: @profile }
+      end
     end
   end
+
   # POST /profiles
   # POST /profiles.json
   def create
