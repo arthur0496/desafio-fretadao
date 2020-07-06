@@ -22,6 +22,8 @@ gem 'pg', '~> 1.2.3'
 
 gem 'nokogiri'
 
+gem 'bitly'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

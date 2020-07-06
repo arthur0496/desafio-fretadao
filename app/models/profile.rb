@@ -5,6 +5,7 @@ require './lib/exceptions.rb'
 class Profile < ApplicationRecord
     validates :name, :github_url, presence: true
     before_create :get_github_info
+    before_save :shorten_url
 
     def get_github_info
 
@@ -25,6 +26,12 @@ class Profile < ApplicationRecord
             errors.add(:base, "Could not web scrape the page #{self.github_url}")
             throw :abort
         end
+    end
+
+    def shorten_url
+        client = Bitly::API::Client.new(token: ENV['BITLY_TOKEN'])
+        bitlink = client.shorten(long_url: self.github_url)
+        self.short_url = bitlink.link
     end
 
 

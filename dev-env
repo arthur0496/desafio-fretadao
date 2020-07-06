@@ -4,3 +4,4 @@ PG_HOST=challenge_db
 PG_PORT=5432
 pidfile=/challenge/tmp/pids/server.pid
 RAILS_ENV=development
+BITLY_TOKEN=bitly-token
