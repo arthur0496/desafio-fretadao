@@ -5,12 +5,14 @@ require './lib/exceptions.rb'
 class Profile < ApplicationRecord
     include Filterable
 
-    validates :name, :github_url, presence: true
+    validates :username, :github_url, presence: true
     before_create :get_github_info
     before_save :shorten_url
 
-
-    scope :github_username,   -> (github_username) { where(github_username: github_username) }
+    scope :github_username,   -> (github_username) { where("lower(github_username) like ?", "%#{github_username.downcase}%") }
+    scope :username,   -> (username) { where("lower(username) like ?", "%#{username.downcase}%") }
+    scope :organization,   -> (organization) { where("lower(organization) like ?", "%#{organization.downcase}%") }
+    scope :location,   -> (location) { where("lower(location) like ?", "%#{location.downcase}%") }
 
 
     def get_github_info

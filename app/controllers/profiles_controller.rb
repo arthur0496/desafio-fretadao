@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.filter_by(filtering_(params))
+    @profiles = Profile.filter_by(@@searchable_params, params[:keyword])
   end
 
   # GET /profiles/1
@@ -80,17 +80,20 @@ class ProfilesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+    @@searchable_params = ['username', 'github_username', 'organization', 'location']
+
+  # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])
     end
 
     def filtering_(params)
-      params.slice(:name, :github_username)
+      params.slice(*@@searchable_params)
     end
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:name, :github_url, :github_username, :followers, :following, :stars, :contributions, :profile_image_url, :organization, :location, :email)
+      params.require(:profile).permit(:username, :github_url, :github_username, :followers, :following, :stars, :contributions, :profile_image_url, :organization, :location, :email)
     end
 end
