@@ -13,4 +13,4 @@ WORKDIR /challenge
 
 COPY . /challenge
 
-RUN bundle install 
+RUN bundle install && yarn install

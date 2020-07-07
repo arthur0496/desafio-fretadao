@@ -72,3 +72,6 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore individual environment variables
+dev-env
