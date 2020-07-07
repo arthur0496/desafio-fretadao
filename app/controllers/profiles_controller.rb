@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.filter_by(filtering_(params))
   end
 
   # GET /profiles/1
@@ -83,6 +83,10 @@ class ProfilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])
+    end
+
+    def filtering_(params)
+      params.slice(:name, :github_username)
     end
 
     # Only allow a list of trusted parameters through.

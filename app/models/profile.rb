@@ -3,9 +3,15 @@ require 'nokogiri'
 require './lib/exceptions.rb'
 
 class Profile < ApplicationRecord
+    include Filterable
+
     validates :name, :github_url, presence: true
     before_create :get_github_info
     before_save :shorten_url
+
+
+    scope :github_username,   -> (github_username) { where(github_username: github_username) }
+
 
     def get_github_info
 
