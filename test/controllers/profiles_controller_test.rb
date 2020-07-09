@@ -17,7 +17,7 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create profile" do
     assert_difference('Profile.count') do
-      post profiles_url, params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, name: @profile.name, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
+      post profiles_url, params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, username: @profile.username, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
     end
 
     assert_redirected_to profile_url(Profile.last)
@@ -34,7 +34,7 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update profile" do
-    patch profile_url(@profile), params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, name: @profile.name, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
+    patch profile_url(@profile), params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, username: @profile.username, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
     assert_redirected_to profile_url(@profile)
   end
 

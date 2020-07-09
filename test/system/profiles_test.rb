@@ -14,17 +14,8 @@ class ProfilesTest < ApplicationSystemTestCase
     visit profiles_url
     click_on "New Profile"
 
-    fill_in "Contributions", with: @profile.contributions
-    fill_in "Email", with: @profile.email
-    fill_in "Followers", with: @profile.followers
-    fill_in "Following", with: @profile.following
     fill_in "Github url", with: @profile.github_url
     fill_in "Github username", with: @profile.github_username
-    fill_in "Location", with: @profile.location
-    fill_in "Name", with: @profile.name
-    fill_in "Organization", with: @profile.organization
-    fill_in "Profile image url", with: @profile.profile_image_url
-    fill_in "Stars", with: @profile.stars
     click_on "Create Profile"
 
     assert_text "Profile was successfully created"
@@ -35,17 +26,9 @@ class ProfilesTest < ApplicationSystemTestCase
     visit profiles_url
     click_on "Edit", match: :first
 
-    fill_in "Contributions", with: @profile.contributions
-    fill_in "Email", with: @profile.email
-    fill_in "Followers", with: @profile.followers
-    fill_in "Following", with: @profile.following
+    
     fill_in "Github url", with: @profile.github_url
-    fill_in "Github username", with: @profile.github_username
-    fill_in "Location", with: @profile.location
-    fill_in "Name", with: @profile.name
-    fill_in "Organization", with: @profile.organization
-    fill_in "Profile image url", with: @profile.profile_image_url
-    fill_in "Stars", with: @profile.stars
+    fill_in "Name", with: @profile.username
     click_on "Update Profile"
 
     assert_text "Profile was successfully updated"

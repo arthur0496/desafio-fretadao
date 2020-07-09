@@ -1,27 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  github_url: MyString
-  github_username: MyString
-  followers: 1
-  following: 1
+  username: "Arthur"
+  github_url: "https://github.com/arthur0496"
+  github_username: "arthur0496"
+  followers: 13
+  following: 0
   stars: 1
-  contributions: 1
-  profile_image_url: MyString
-  organization: MyString
-  location: MyString
-  email: MyString
+  contributions: 215
+  profile_image_url: "https://avatars0.githubusercontent.com/u/26264107?s=460&u=fa9ef551af14682199adebd1c93067c30a09008f&v=4,"
+  organization: UnB
+  location: Brazil
 
 two:
-  name: MyString
-  github_url: MyString
-  github_username: MyString
-  followers: 1
+  username: Yukihiro "Matz" Matsumoto
+  github_url: https://github.com/matz
+  github_username: matz
+  followers: 7700
   following: 1
-  stars: 1
-  contributions: 1
-  profile_image_url: MyString
-  organization: MyString
-  location: MyString
-  email: MyString
+  stars: 7
+  contributions: 663
+  profile_image_url: "https://avatars2.githubusercontent.com/u/30733?s=460&v=4"
+  organization: "Ruby Association,NaCl,Heroku,Etc."
+  location: Matsue, Japan
