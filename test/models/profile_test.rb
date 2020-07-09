@@ -85,4 +85,37 @@ class ProfileTest < ActiveSupport::TestCase
     profile.valid?
     assert_not profile.errors[:github_url].empty?
   end
+
+  test "shorten_url method updates short_url" do
+
+    mock = Minitest::Mock.new
+    def mock.shorten(long_url)
+      self
+    end
+
+    def mock.link; "https://bit.ly/SHORTURL"; end
+
+    Bitly::API::Client.stub :new, mock do
+      profile = profiles(:one)
+      profile.shorten_url
+      assert profile.short_url == "https://bit.ly/SHORTURL"
+    end
+  end
+
+  test "shorten url method saves short_url" do
+
+    mock = Minitest::Mock.new
+    def mock.shorten(long_url)
+      self
+    end
+
+    def mock.link; "https://bit.ly/SHORTURL"; end
+
+    Bitly::API::Client.stub :new, mock do
+      profile = profiles(:one)
+      profile.shorten_url
+      assert profile.short_url == "https://bit.ly/SHORTURL"
+    end
+  end
+
 end

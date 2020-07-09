@@ -7,7 +7,7 @@ class Profile < ApplicationRecord
 
     validates :username, :github_url, presence: true, allow_blank: false
     validates :github_url,
-        format: {with: /\A((https|http):\/\/)(www\.)?github\.com\/[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}\z/i },
+        format: {with: /\A((https|http):\/\/)(www\.)?github\.com\/[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}\/?\z/i },
         length: {within: 19..62}
 
     validates :username, length: {within: 1..50}
@@ -176,6 +176,7 @@ class WebScreper
             if location_icon
                 location = location_icon.parent.at_css('span').content
             end
+
         rescue
             raise Exceptions::WebScreppingError
         end
