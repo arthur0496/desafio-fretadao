@@ -3,13 +3,13 @@
   <div class= 'col-md-10'>  
   <p id="notice"><%= notice %></p>
 
-<div class="text-center align border p-2 m-3">
+<div class="text-center align p-2 m-3">
     
-    <div class= 'mt-1 text-center align'>
+    <div class= 'mt-1 align'>
     <p>
       <img
           src= <%=@profile.profile_image_url%>,
-          class="rounded border",
+          class="rounded ",
           hight = '10%',
           width = '10%',
 
@@ -25,12 +25,12 @@
 
     <p>
       <strong>Github url:</strong>
-      <%= @profile.github_url %>
+      <a href= <%= @profile.github_url %> > <%= @profile.github_url %> </a>
     </p>
 
     <p>
       <strong>Short url:</strong>
-      <%= @profile.short_url %>
+      <a href= <%= @profile.short_url %> > <%= @profile.short_url %> </a>
     </p>
 
     <p>
