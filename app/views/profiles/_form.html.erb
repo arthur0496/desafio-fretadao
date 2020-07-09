@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :username %>
-    <%= form.text_field :username %>
+    <%= form.label :username %><br>
+    <%= form.text_field :username, class: "form-control text-center" %><br>
   </div>
 
   <div class="field">
-    <%= form.label :github_url %>
-    <%= form.url_field :github_url %>
+    <%= form.label :github_url %><br>
+    <%= form.url_field :github_url, class: "form-control text-center", type: 'url' %><br>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <br>
+
+  <div class="btn-group actions">
+    <%= form.submit class: 'btn btn-lg btn-success'%>
+    <%= link_to 'Cancel', :back, class: 'btn btn-lg btn-danger' %>
+  </div>
   </div>
 <% end %>
