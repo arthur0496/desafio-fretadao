@@ -7,7 +7,10 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.filter_by(@@searchable_params, params[:keyword])
+    @profiles = Profile.where(nil)
+    if params[:keyword]
+      @profiles = Profile.filter_by(@@searchable_params, params[:keyword])
+    end
   end
 
   # GET /profiles/1

@@ -1,34 +1,46 @@
-<p id="notice"><%= notice %></p>
-
-<%= form_tag(profiles_path, method: :get) do %>
-  <%= text_field_tag :keyword %>
-  <%= submit_tag 'Search' %>
-<% end %>
-
-
-<h1>Profiles</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Short url</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @profiles.each do |profile| %>
-      <tr>
-        <td><%= profile.username %></td>
-        <td><%= profile.short_url %></td>
-        <td><%= link_to 'Show', profile %></td>
-        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Profile', new_profile_path %>
+<div class= 'row'>
+  <div class= 'col'> </div>
+  <div class= 'col-md-10 text-center pb- 3'>
+    <p id="notice"><%= notice %></p>
+    <h1>Profiles</h1>
+    <table class="table table-borderless align-middle border">
+      <thead class= "thead-light border">
+        <tr>
+        <th colspan="1"></th>
+          <th>Name</th>
+          <th>Short URL</th>
+        <th colspan="1">Opitions</th>
+        </tr>
+      </thead>
+ 
+      <tbody>
+        <% @profiles.each do |profile| %>
+          <tr>
+            <td style="height:15%;  width:15%;">
+            <img
+              src= <%=profile.profile_image_url%>,
+              class="rounded ",
+              hight = '100%',
+              width = '100%',
+            %>
+            </td>
+            <td class= align-middle><%= profile.username %></td>
+            <td class= align-middle>
+              <a href=<%= profile.short_url %>> href=<%= profile.short_url %></a>
+            </td>
+            <td class= align-middle>
+              <div class="btn-group">
+                <%= button_to 'Show', profile, class: 'btn btn-lg btn-info' , method: :get%>
+                <%= button_to 'Edit', edit_profile_path(profile), class: 'btn btn-lg btn-warning', method: :get %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= button_to 'New Profile', new_profile_path, class: 'btn btn-lg btn-info', method: :get %>
+    <br>
+  </div>
+  <div class= 'col'> </div>
+</div>
