@@ -1,71 +1,94 @@
-<p id="notice"><%= notice %></p>
+<div class= 'row'>
+  <div class= 'col'> </div>
+  <div class= 'col-md-10'>  
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <img
-    src= <%=@profile.profile_image_url%>
-  %>
-</p>
+<div class="text-center align border p-2 m-3">
+    
+    <div class= 'mt-1 text-center align'>
+    <p>
+      <img
+          src= <%=@profile.profile_image_url%>,
+          class="rounded border",
+          hight = '10%',
+          width = '10%',
 
-<p>
-  <strong>Name:</strong>
-  <%= @profile.username %>
-</p>
+        %>
+    </p>
+    </div>
 
-<p>
-  <strong>Github url:</strong>
-  <%= @profile.github_url %>
-</p>
 
-<p>
-  <strong>Short url:</strong>
-  <%= @profile.short_url %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @profile.username %>
+    </p>
 
-<p>
-  <strong>Github username:</strong>
-  <%= @profile.github_username %>
-</p>
+    <p>
+      <strong>Github url:</strong>
+      <%= @profile.github_url %>
+    </p>
 
-<p>
-  <strong>Followers:</strong>
-  <%= @profile.followers %>
-</p>
+    <p>
+      <strong>Short url:</strong>
+      <%= @profile.short_url %>
+    </p>
 
-<p>
-  <strong>Following:</strong>
-  <%= @profile.following %>
-</p>
+    <p>
+      <strong>Github username:</strong>
+      <%= @profile.github_username %>
+    </p>
 
-<p>
-  <strong>Stars:</strong>
-  <%= @profile.stars %>
-</p>
+    <p>
+      <strong>Followers:</strong>
+      <%= @profile.followers %>
+    </p>
 
-<p>
-  <strong>Contributions:</strong>
-  <%= @profile.contributions %>
-</p>
+    <p>
+      <strong>Following:</strong>
+      <%= @profile.following %>
+    </p>
 
-<p>
-  <strong>Profile image url:</strong>
-  <%=@profile.profile_image_url%>
-</p>
+    <p>
+      <strong>Stars:</strong>
+      <%= @profile.stars %>
+    </p>
 
-<p>
-  <strong>Organization:</strong>
-  <%= @profile.organization %>
-</p>
+    <p>
+      <strong>Contributions:</strong>
+      <%= @profile.contributions %>
+    </p>
 
-<p>
-  <strong>Location:</strong>
-  <%= @profile.location %>
-</p>
+    <% if @profile.organization %>
+      <p>
+        <strong>Organization:</strong>
+        <%= @profile.organization %>
+      </p>
+    <% end %>
+ 
+    <% if @profile.location %>
+      <p>
+        <strong>Location:</strong>
+        <%= @profile.location %>
+      </p>
+    <% end %>
+    
+    <% if @profile.email %>
+      <p>
+        <strong>Email:</strong>
+        <%= @profile.email %>
+      </p>
+    <% end %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @profile.email %>
-</p>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= button_to "Some Button", action="/profiles/#{@profile.id}/update_informations" %>
-<%= link_to 'Back', profiles_path %>
+<div class="btn-group m-2">
+    <%= button_to 'Extract github info', action="/profiles/#{@profile.id}/update_informations", class: 'btn btn-md btn-success' %>
+    <%= button_to 'Edit', edit_profile_path(@profile), class: 'btn btn-md btn-warning', method: :get %>
+    <%= button_to 'Back', profiles_path , class: 'btn btn-md btn-info' , method: :get %>
+
+</div>
+
+</div>
+
+</div>
+  <div class= 'col'> </div>
+</div>
