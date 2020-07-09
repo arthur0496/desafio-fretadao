@@ -10,6 +10,22 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+
  */
+
+ $theme-colors: (
+    primary: #1A535C,
+    secondary: #F7FFF7,
+    info: #4ECDC4,
+    warning: #FFE66D,
+    success: #5AB441,
+    danger: #FF6B6B,
+);
+
+.my-page{
+    height: 100%;
+    width: 100%;
+}
+
+@import "bootstrap";
+
