@@ -85,11 +85,11 @@
 
 
 <div class="btn-group m-2">
-    <%= button_to 'Extract github info', action="/profiles/#{@profile.id}/update_informations", class: 'btn btn-md btn-success' %>
-    <%= button_to 'Edit', edit_profile_path(@profile),  method: :get, class: 'btn btn-md btn-warning' %>
-    <%= button_to 'Destroy', @profile, method: :delete, class: 'btn btn-md btn-danger',
+    <%= button_to 'Extract github info', action="/profiles/#{@profile.id}/update_informations", class: 'btn btn-md btn-block btn-success btn_test' %>
+    <%= button_to 'Edit', edit_profile_path(@profile),  method: :get, class: 'btn btn-md btn-block btn-warning btn_test' %>
+    <%= button_to 'Destroy', @profile, method: :delete, class: 'btn btn-md btn-block btn-danger btn_test',
      data: { confirm: 'Are you sure?',  } %>
-    <%= button_to 'Back', profiles_path , method: :get, class: 'btn btn-md btn-info'  %>
+    <%= button_to 'Back', profiles_path , method: :get, class: 'btn btn-md btn-block btn-info'  %>
 
 </div>
 
