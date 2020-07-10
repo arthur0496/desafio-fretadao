@@ -12,8 +12,6 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def create_profiles
-    for p in profiles
-      p.save
-    end
+    profiles.each(&:save)
   end
 end

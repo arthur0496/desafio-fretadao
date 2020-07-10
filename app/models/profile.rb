@@ -25,7 +25,7 @@ class Profile < ApplicationRecord
         where("lower(location) like ?", "%#{location.downcase}%") }
 
 
-    def get_github_info
+    def update_github_info
 
         begin
             web_screper = WebScreper.new(self.github_url)

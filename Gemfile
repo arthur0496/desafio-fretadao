@@ -28,6 +28,8 @@ gem 'bootstrap', '~> 4.0.0'
 
 gem 'jquery-rails'
 
+gem 'rubocop', '~> 0.87.1', require: false
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

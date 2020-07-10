@@ -5,40 +5,40 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
     @profile = profiles(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get profiles_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_profile_url
     assert_response :success
   end
 
-  test "should create profile" do
+  test 'should create profile' do
     assert_difference('Profile.count') do
-      post profiles_url, params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, username: @profile.username, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
+      post profiles_url, params: { profile: { github_url: @profile.github_url, username: @profile.username } }
     end
 
     assert_redirected_to profile_url(Profile.last)
   end
 
-  test "should show profile" do
+  test 'should show profile' do
     get profile_url(@profile)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_profile_url(@profile)
     assert_response :success
   end
 
-  test "should update profile" do
-    patch profile_url(@profile), params: { profile: { contributions: @profile.contributions, email: @profile.email, followers: @profile.followers, following: @profile.following, github_url: @profile.github_url, github_username: @profile.github_username, location: @profile.location, username: @profile.username, organization: @profile.organization, profile_image_url: @profile.profile_image_url, stars: @profile.stars } }
+  test 'should update profile' do
+    patch profile_url(@profile), params: { profile: { github_url: @profile.github_url, username: @profile.username } }
     assert_redirected_to profile_url(@profile)
   end
 
-  test "should destroy profile" do
+  test 'should destroy profile' do
     assert_difference('Profile.count', -1) do
       delete profile_url(@profile)
     end
@@ -46,16 +46,17 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to profiles_url
   end
 
-  test "should update informations and redirect to show page" do
+  test 'should update informations and redirect to show page' do
     mock = Minitest::Mock.new
-    def mock.get_github_info; true; end
+    def mock.update_github_info
+      true
+    end
     mock.expect :id, @profile.id
 
     Profile.stub :new, mock do
       post "/profiles/#{@profile.id}/update_informations", params: {}
     end
-    
+
     assert_redirected_to profile_url(@profile)
   end
-
 end

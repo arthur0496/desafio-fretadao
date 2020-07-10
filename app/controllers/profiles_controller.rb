@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
   def update_informations
     respond_to do |format|
       begin
-        @profile.get_github_info
+        @profile.update_github_info
         @profile.save
       rescue Exception => e
         format.html { render :edit }
