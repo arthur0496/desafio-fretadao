@@ -3,9 +3,9 @@ module Filterable
 
   module ClassMethods
     def filter_by(filtering_params, value)
-      all_objects = self.where(nil)
+      all_objects = self
       results = nil
-      for key in filtering_params
+      filtering_params.each do |key|
         if results
           results = results.or(all_objects.send(key, value))
         else

@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# class that contains unit test for Profile search methods
 class ProfileSearchTest < ActiveSupport::TestCase
   setup do
     create_profiles

@@ -1,0 +1,38 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'config/puma.rb'
+    - 'config/spring.rb'
+    - 'bin/*'
+    - '**/*.jbuilder'
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false

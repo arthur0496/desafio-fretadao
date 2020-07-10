@@ -2,6 +2,7 @@ require 'test_helper'
 # require './lib/exceptions.rb'
 require './app/models/profile'
 
+# class that contains unit tests for WebScraper
 class WebScreperTest < ActiveSupport::TestCase
   setup do
     html_path = 'test/fixtures/files/github_page_without_optionals.html'
@@ -33,6 +34,11 @@ class WebScreperTest < ActiveSupport::TestCase
 
   test 'finds followers' do
     followers = @web_screper.find_followers
+    assert_instance_of Integer, followers
+  end
+
+  test 'finds followers with abreviation' do
+    followers = @web_screper_with_optionals.find_followers
     assert_instance_of Integer, followers
   end
 

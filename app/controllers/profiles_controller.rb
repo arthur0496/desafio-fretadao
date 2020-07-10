@@ -1,16 +1,13 @@
 require './lib/exceptions.rb'
 
-
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy, :update_informations]
+  before_action :set_profile, only: %i[show edit update destroy update_informations]
 
   # GET /profiles
   # GET /profiles.json
   def index
     @profiles = Profile.all
-    if params[:keyword]
-      @profiles = Profile.filter_by(@@searchable_params, params[:keyword])
-    end
+    @profiles = Profile.filter_by(@@searchable_params, params[:keyword]) if params[:keyword]
   end
 
   # GET /profiles/1
@@ -29,16 +26,14 @@ class ProfilesController < ApplicationController
 
   def update_informations
     respond_to do |format|
-      begin
-        @profile.update_github_info
-        @profile.save
-      rescue Exception => e
-        format.html { render :edit }
-        format.json { render json: e, status: :unprocessable_entity }
-      else
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
-      end
+      @profile.update_github_info
+      @profile.save
+    rescue StandardError => e
+      format.html { render :edit }
+      format.json { render json: e, status: :unprocessable_entity }
+    else
+      format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+      format.json { render :show, status: :ok, location: @profile }
     end
   end
 
@@ -84,19 +79,19 @@ class ProfilesController < ApplicationController
 
   private
 
-    @@searchable_params = ['username', 'github_username', 'organization', 'location']
+  @@searchable_params = %w[username github_username organization location]
 
   # Use callbacks to share common setup or constraints between actions.
-    def set_profile
-      @profile = Profile.find(params[:id])
-    end
+  def set_profile
+    @profile = Profile.find(params[:id])
+  end
 
-    def filtering_(params)
-      params.slice(*@@searchable_params)
-    end
+  def filtering_(params)
+    params.slice(*@@searchable_params)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def profile_params
-      params.require(:profile).permit(:username, :github_url)
-    end
+  # Only allow a list of trusted parameters through.
+  def profile_params
+    params.require(:profile).permit(:username, :github_url)
+  end
 end
