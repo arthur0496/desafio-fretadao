@@ -1,7 +1,11 @@
 <div class= 'row'>
   <div class= 'col'> </div>
   <div class= 'col-md-10 text-center pb- 3'>
-    <p id="notice"><%= notice %></p>
+    <% if notice%>
+      <div class= "alert alert-info">
+        <p id="notice"><%= notice %></p>
+      </div>
+    <%end%>
     <h1>Profiles</h1>
     <table class="table table-borderless align-middle border">
       <thead class= "thead-light border">

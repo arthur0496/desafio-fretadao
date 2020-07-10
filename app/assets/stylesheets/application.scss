@@ -13,19 +13,21 @@
 
  */
 
+ $primary: #1A535C;
+ $secondary: #F7FFF7;
+ $body-bg: $secondary;
+
  $theme-colors: (
-    primary: #1A535C,
-    secondary: #F7FFF7,
+    primary: $primary,
+    secondary: $secondary,
     info: #4ECDC4,
     warning: #FFE66D,
     success: #5AB441,
     danger: #FF6B6B,
 );
 
-.my-page{
-    height: 100%;
-    width: 100%;
-}
-
 @import "bootstrap";
 
+.body-container{
+    padding-top: 70px;
+}
