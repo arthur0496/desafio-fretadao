@@ -14,7 +14,7 @@ class Profile < ApplicationRecord
   validates :username, length: { within: 1..50 }
 
   before_create :update_github_info
-  before_save :shorten_url
+  before_save :shorten_url, if: :will_save_change_to_github_url?
 
   scope :github_username, ->(github_username) {
     where('lower(github_username) like ?', "%#{github_username.downcase}%")
@@ -30,18 +30,18 @@ class Profile < ApplicationRecord
   }
 
   def update_github_info
-    web_screper = WebScreper.new(github_url)
+    web_scrapper = WebScrapper.new(github_url)
 
-    self.github_username = web_screper.find_username
-    self.profile_image_url = web_screper.find_profile_image
-    self.followers = web_screper.find_followers
-    self.following = web_screper.find_following
-    self.stars = web_screper.find_stars
-    self.organization = web_screper.find_organization
-    self.location = web_screper.find_location
-    # self.email = web_screper.find_email
-    self.contributions = web_screper.find_contributions
-  rescue Exceptions::WebScreppingError
+    self.github_username = web_scrapper.find_username
+    self.profile_image_url = web_scrapper.find_profile_image
+    self.followers = web_scrapper.find_followers
+    self.following = web_scrapper.find_following
+    self.stars = web_scrapper.find_stars
+    self.organization = web_scrapper.find_organization
+    self.location = web_scrapper.find_location
+    # self.email = web_scrapper.find_email
+    self.contributions = web_scrapper.find_contributions
+  rescue Exceptions::WebScrapingError
     errors.add(:base, "Could not web scrape the page #{github_url}")
     throw :abort
   end
@@ -53,7 +53,7 @@ class Profile < ApplicationRecord
   end
 end
 
-class WebScreper
+class WebScrapper
   def initialize(url)
     @url = url
 
@@ -67,29 +67,29 @@ class WebScreper
     @parsed_page = Nokogiri::HTML(doc)
     user_card = @parsed_page.at_css('div[class="h-card mt-4 mt-md-n5"]')
     @user_card = user_card
-    raise Exceptions::WebScreppingError if @user_card.nil?
+    raise Exceptions::WebScrapingError if @user_card.nil?
   end
 
   def find_username
     username_search_str = 'span[class="p-nickname vcard-username d-block"]'
     username_span = @user_card.at_css(username_search_str)
     username = username_span.content
-    raise Exceptions::WebScreppingError if username.nil?
+    raise Exceptions::WebScrapingError if username.nil?
 
     username
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_profile_image
     image_search_class = 'avatar avatar-user width-full border bg-white'
     image_search_string = "img[class=\"#{image_search_class}\"]"
     profile_image = @user_card.at_css(image_search_string)['src']
-    raise Exceptions::WebScreppingError if profile_image.nil?
+    raise Exceptions::WebScrapingError if profile_image.nil?
 
     profile_image
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_followers
@@ -98,11 +98,11 @@ class WebScreper
     followers_span = followers_anchor.at_css(followers_span_search_str)
     followers_string = followers_span.content
     followers = convet_abbreviated_string_int(followers_string)
-    raise Exceptions::WebScreppingError if followers.nil?
+    raise Exceptions::WebScrapingError if followers.nil?
 
     followers
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_following
@@ -111,11 +111,11 @@ class WebScreper
     following_span = following_anchor.at_css(followers_span_search_str)
     following_string = following_span.content
     following = convet_abbreviated_string_int(following_string)
-    raise Exceptions::WebScreppingError if following.nil?
+    raise Exceptions::WebScrapingError if following.nil?
 
     following
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_stars
@@ -124,11 +124,11 @@ class WebScreper
     stars_span = stars_icon.parent.at_css('span')
     stars_string = stars_span.content
     stars = convet_abbreviated_string_int(stars_string)
-    raise Exceptions::WebScreppingError if stars.nil?
+    raise Exceptions::WebScrapingError if stars.nil?
 
     stars
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_organization
@@ -136,7 +136,7 @@ class WebScreper
     organization_icon = @user_card.at_css(organization_icon_search_str)
     organization_icon.parent.at_css('span').content unless organization_icon.nil?
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_location
@@ -144,7 +144,7 @@ class WebScreper
     location_icon = @user_card.at_css(location_icon_seach_str)
     location_icon.parent.at_css('span').content unless location_icon.nil?
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   # github does not show email to non signed in users
@@ -153,7 +153,7 @@ class WebScreper
     mail_icon = @user_card.at_css(mail_icon_search_str)
     mail_icon.parent.at_css('a').content unless mail_icon.nil?
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def find_contributions
@@ -163,11 +163,11 @@ class WebScreper
     contributions_string = contributions_h2.content
     contributions_string = contributions_string.split(' ').first
     contributions = contributions_string.delete(',').to_i
-    raise Exceptions::WebScreppingError if contributions.nil?
+    raise Exceptions::WebScrapingError if contributions.nil?
 
     contributions
   rescue NoMethodError
-    raise Exceptions::WebScreppingError
+    raise Exceptions::WebScrapingError
   end
 
   def convet_abbreviated_string_int(string_number)

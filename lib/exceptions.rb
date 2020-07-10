@@ -1,4 +1,4 @@
 module Exceptions
-  class WebScreppingError < StandardError
+  class WebScrapingError < StandardError
   end
 end

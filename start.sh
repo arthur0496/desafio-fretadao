@@ -1,20 +1,38 @@
 #!/bin/sh
 
-bundle check || bundle install
+# Exporting all environment variables to use in crontab
+env | sed 's/^\(.*\)$/ \1/g' > /root/env
 
-# while ! pg_isready -h $PG_HOST -p $PG_PORT -q -U $PG_USERNAME; do
-#   >&2 echo "Postgres is unavailable - sleeping..."
-#   sleep 5
-# done
-# >&2 echo "Postgres is up - executing commands..."
+function_postgres_ready() {
+python << END
+import socket
+import time
+import os
+
+port = int(os.environ["PG_PORT"])
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(('challenge_db', port))
+s.close()
+END
+}
+
+
+bundle check || bundle install
+rails webpacker:install
+
+until function_postgres_ready; do
+  >&2 echo "Postgres is unavailable - sleeping..."
+  sleep 1
+done
+>&2 echo "Postgres is up - executing commands..."
+
 
 if [ -f $pidfile ] ; then
   echo 'Server PID file exists. Removing it...'
   rm $pidfile
 fi
-sleep 5
-
-rails webpacker:install
 
 # If database exists, migrate. Otherwise, create and seed
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup db:seed
