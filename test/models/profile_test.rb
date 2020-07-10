@@ -92,7 +92,6 @@ class ProfileTest < ActiveSupport::TestCase
     def mock.shorten(long_url)
       self
     end
-
     def mock.link; "https://bit.ly/SHORTURL"; end
 
     Bitly::API::Client.stub :new, mock do

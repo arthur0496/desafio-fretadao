@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.where(nil)
+    @profiles = Profile.all
     if params[:keyword]
       @profiles = Profile.filter_by(@@searchable_params, params[:keyword])
     end
@@ -97,6 +97,6 @@ class ProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:username, :github_url, :github_username, :followers, :following, :stars, :contributions, :profile_image_url, :organization, :location, :email)
+      params.require(:profile).permit(:username, :github_url)
     end
 end

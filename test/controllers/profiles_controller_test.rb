@@ -45,4 +45,17 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to profiles_url
   end
+
+  test "should update informations and redirect to show page" do
+    mock = Minitest::Mock.new
+    def mock.get_github_info; true; end
+    mock.expect :id, @profile.id
+
+    Profile.stub :new, mock do
+      post "/profiles/#{@profile.id}/update_informations", params: {}
+    end
+    
+    assert_redirected_to profile_url(@profile)
+  end
+
 end
